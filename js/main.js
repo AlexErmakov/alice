@@ -1,9 +1,24 @@
 $(function() {
+    const mobile_width = 600;
+    $(window).resize(()=>{
+        menu_size();
+    })
+    function menu_size() { 
+        if ($(window).width()>mobile_width)
+            $('.js_header_menu_list').css('display','flex')
 
-	$('.js_call_project').click(function(event) {
-		$('.js_name_page').val(window.location.href);
-	});
-	
+        if ($('.js_header_menu_list').is(':visible'))
+            if ($(window).width()<mobile_width)
+                $('.js_header_menu_list').css('display','none')
+            
+     }
+    $(".js_btn_main_menu").click(function(event) {
+        
+        $('.js_header_menu_list').fadeToggle('slow');
+        
+
+    });
+    
 	$('.js_form').submit(function( event ) {
         if ($(this)[0].checkValidity()) {
             formx = $(this).serialize();    

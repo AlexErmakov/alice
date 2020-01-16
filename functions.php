@@ -18,12 +18,18 @@
 
 
  
-
+    add_filter( 'excerpt_length', function(){
+        return 50;
+      });
+      add_filter('excerpt_more', function($more) {
+        return '...';
+      });
     register_nav_menus(array( 
         'main_menu' => 'Главное меню',
         'add_menu_footer_1' => 'Меню подвала 1',
         'add_menu_footer_2' => 'Меню подвала 2',
-        'sidebar_menu' => 'Меню sidebara'
+        'add_menu_footer_3' => 'Меню подвала 3',
+        'add_menu_footer_4' => 'Меню подвала 4',
     ));
 
 
@@ -61,7 +67,7 @@ function favicon(){
     function add_scripts() {
         if(is_admin()) return false;
         wp_deregister_script('jquery'); 
-        wp_enqueue_script('jquery','https://code.jquery.com/jquery-2.2.4.min.js','','',true);
+        wp_enqueue_script('jquerylast','https://code.jquery.com/jquery-2.2.4.min.js','','',true);
         wp_enqueue_script('slick_js','https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js','','',true);
         wp_enqueue_script('fancybox_js','https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.4.2/jquery.fancybox.min.js','','',true);
         wp_enqueue_script('main', get_template_directory_uri().'/js/main.js?v=1','','',true);
@@ -84,28 +90,38 @@ function favicon(){
     get_template_part('include/in_function/mydefault');
  
     function create_my_post_types() {
-          // register_post_type(
-          //    'project',
-          //     array(
-          //        'labels' => array( 'name' => __('Проекты'),
-          //        'singular_name' => __( 'Проект' ) ),
-          //        'supports'      => array( 'title', 'thumbnail','editor'),
-          //        'public' => true,
-          //        'has_archive' => true, 
-          //    )
-          // );
+          register_post_type(
+             'objects',
+              array(
+                 'labels' => array( 'name' => __('Выполненные Объекты'),
+                 'singular_name' => __( 'Объект' ) ),
+                 'supports'      => array( 'title', 'thumbnail','editor'),
+                 'public' => true,
+                 'has_archive' => true, 
+             )
+          );
+          register_post_type(
+            'service',
+             array(
+                'labels' => array( 'name' => __('Услуги'),
+                'singular_name' => __( 'Услуга' ) ),
+                'supports'      => array( 'title', 'thumbnail','editor'),
+                'public' => true,
+                'has_archive' => true, 
+            )
+         );
      }
 
      function create_my_tax() {
-        // register_taxonomy(
-        //     'catalog',
-        //     'project',
-        //     array(
-        //         'label' => __( 'Категории проектов' ),
-        //         'hierarchical'=> true
+        register_taxonomy(
+            'type_service',
+            'service',
+            array(
+                'label' => __( 'Тип услуг' ),
+                'hierarchical'=> true
 
-        //     )
-        // );
+            )
+        );
     }
 
     add_action( 'init', 'create_my_post_types' );

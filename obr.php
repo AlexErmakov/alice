@@ -47,7 +47,7 @@
             $message.="<p>Email : ".$_POST['email']."</p>";
         } 
 
-        } 
+    
         if ((isset($_POST['formName'])) && (!empty($_POST['formName']))) {
             $message.="<p>Название формы : ".$_POST['formName']."</p>";
         } 
@@ -59,7 +59,6 @@
         $emailgo->from_email= '....'; 
         $emailgo->from_name= $emailgo->from_email;
         $emailgo->to_email= 'ermakov.ko@ya.ru'; 
-        // $emailgo->to_email= 'ocms57@mail.ru'; 
         
         $emailgo->to_name= $emailgo->from_email;
         $emailgo->subject= 'Заявка с сайта '.$emailgo->from_email.':';
